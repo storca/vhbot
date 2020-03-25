@@ -6,11 +6,11 @@ bot = commands.Bot(command_prefix=c.cmd_prefix)
 
 global raised_hand_users
 global raise_your_hand_message
+global nicknames
 
 raised_hand_users = list()
+nicknames = list()
 raise_your_hand_message = None
-
-#TODO : delete request messages
 
 @bot.event
 async def on_ready():
@@ -19,7 +19,7 @@ async def on_ready():
 @bot.command()
 async def q(ctx):
     """
-    When the person asks for a raise your hand event
+    Asks people to raise their hands
     """
     global raise_your_hand_message
     #TODO access control if ctx.message.author == 
@@ -37,7 +37,9 @@ async def on_reaction_add(reaction, user):
     """
     global raised_hand_users
     global raise_your_hand_message
-    if reaction.message.id == raise_your_hand_message.id:
+    global nicknames
+
+    if raise_your_hand_message != None and reaction.message.id == raise_your_hand_message.id:
         print("reaction added")
         #async for user in reaction.users():
         if user == bot.user:
@@ -45,6 +47,7 @@ async def on_reaction_add(reaction, user):
         elif reaction.emoji == c.raised_hand_emoji:
             #Then the user has raised his hand
             if user not in raised_hand_users:
+                nicknames.append(user.display_name)
                 raised_hand_users.append(user)
                 #Rename the user
                 print("renaming")
@@ -53,10 +56,11 @@ async def on_reaction_add(reaction, user):
 @bot.event
 async def on_reaction_remove(reaction, user):
     """
+    When a reation is removed from the raise your hand message
     """
     global raised_hand_users
     global raise_your_hand_message
-    if reaction.message.id == raise_your_hand_message.id:
+    if raise_your_hand_message != None and reaction.message.id == raise_your_hand_message.id:
         print(user)
         if user == bot.user:
             pass
@@ -64,7 +68,7 @@ async def on_reaction_remove(reaction, user):
             #Rename the user accordingly
             for k, r_user in enumerate(raised_hand_users):
                 if r_user == user:
-                    await user.edit(nick=user.display_name[len(c.raised_hand_prefix):]) #remove the prefix
+                    await user.edit(nick=nicknames[k])
                     raised_hand_users.pop(k) #dirty : remove him from the list
                     return 
             print("User not found in rasied_hand_users")
@@ -72,18 +76,20 @@ async def on_reaction_remove(reaction, user):
 @bot.command()
 async def e(ctx):
     """
-    End the raise my hand
+    End the struggle
     """
     global raised_hand_users
     global raise_your_hand_message
+    global nicknames
     if raise_your_hand_message != None:
         await ctx.message.delete()
         await raise_your_hand_message.delete()
-        for user in raised_hand_users:
+        for k, user in enumerate(raised_hand_users):
             if not user == bot.user:
-                await user.edit(nick=user.display_name[len(c.raised_hand_prefix):])
+                await user.edit(nick=nicknames[k])
+                print(user.display_name)
+                raised_hand_users.pop(k)
         raised_hand_users = list()
     raise_your_hand_message = None
-
 
 bot.run(c.token)
