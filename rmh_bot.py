@@ -10,6 +10,10 @@ global raise_your_hand_message
 raised_hand_users = list()
 raise_your_hand_message = None
 
+@bot.event
+async def on_ready():
+    print("Logged in as %s %s", bot.user.name, bot.user.id)
+
 @bot.command()
 async def q(ctx):
     """
@@ -17,11 +21,11 @@ async def q(ctx):
     """
     #TODO access control if ctx.message.author == 
     if raise_your_hand_message == None:
-        msg = ctx.send(c.raise_your_hand_text)
+        msg = await ctx.send(c.raise_your_hand_text)
         raise_your_hand_message = msg
         await msg.add_reaction(c.raised_hand_emoji)
     else:
-        ctx.send(c.multiple_rmh_messages_error)
+        await ctx.send(c.multiple_rmh_messages_error)
 
 @bot.event
 async def on_reaction_add(reaction, user):
