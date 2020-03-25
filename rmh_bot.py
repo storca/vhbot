@@ -26,6 +26,7 @@ async def q(ctx):
     if raise_your_hand_message == None:
         raise_your_hand_message = await ctx.send(c.raise_your_hand_text)
         await raise_your_hand_message.add_reaction(c.raised_hand_emoji)
+        await ctx.message.delete()
     else:
         await ctx.send(c.multiple_rmh_messages_error)
 
@@ -76,12 +77,13 @@ async def e(ctx):
     global raised_hand_users
     global raise_your_hand_message
     if raise_your_hand_message != None:
+        await ctx.message.delete()
         await raise_your_hand_message.delete()
         for user in raised_hand_users:
             if not user == bot.user:
                 await user.edit(nick=user.display_name[len(c.raised_hand_prefix):])
         raised_hand_users = list()
-        raise_your_hand_message = None
+    raise_your_hand_message = None
 
 
 bot.run(c.token)
