@@ -60,6 +60,7 @@ async def on_reaction_remove(reaction, user):
     """
     global raised_hand_users
     global raise_your_hand_message
+    global nicknames
     if raise_your_hand_message != None and reaction.message.id == raise_your_hand_message.id:
         print(user)
         if user == bot.user:
@@ -70,6 +71,7 @@ async def on_reaction_remove(reaction, user):
                 if r_user == user:
                     await user.edit(nick=nicknames[k])
                     raised_hand_users.pop(k) #dirty : remove him from the list
+                    nicknames.pop(k)
                     return 
             print("User not found in rasied_hand_users")
 
@@ -90,6 +92,7 @@ async def e(ctx):
                 print(user.display_name)
                 raised_hand_users.pop(k)
         raised_hand_users = list()
+        nicknames = list()
     raise_your_hand_message = None
 
 bot.run(c.token)
