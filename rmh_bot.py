@@ -86,6 +86,7 @@ async def e(ctx):
     if raise_your_hand_message != None:
         await ctx.message.delete()
         await raise_your_hand_message.delete()
+        raise_your_hand_message = None
         for k, user in enumerate(raised_hand_users):
             if not user == bot.user:
                 await user.edit(nick=nicknames[k])
@@ -93,6 +94,4 @@ async def e(ctx):
                 raised_hand_users.pop(k)
         raised_hand_users = list()
         nicknames = list()
-    raise_your_hand_message = None
-
 bot.run(c.token)
