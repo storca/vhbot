@@ -7,14 +7,16 @@ bot = commands.Bot(command_prefix=c.cmd_prefix)
 global raised_hand_users
 global raise_your_hand_message
 global nicknames
+global channel
 
 raised_hand_users = list()
 nicknames = list()
 raise_your_hand_message = None
+channel = None
 
 @bot.event
 async def on_ready():
-    print("Logged in as %s %s", bot.user.name, bot.user.id)
+    print("Logged in as %s %s" % (bot.user.name, bot.user.id))
 
 @bot.command()
 async def q(ctx):
@@ -29,6 +31,29 @@ async def q(ctx):
         await ctx.message.delete()
     else:
         await ctx.send(c.multiple_rmh_messages_error)
+
+@bot.command()
+async def join(ctx):
+    """
+    Connects to the same channel the user is in
+    """
+    global channel
+    if channel == None:
+        print(channel)
+        if type(ctx.message.author.voice) == discord.VoiceState and type(ctx.message.author.voice.channel) == discord.VoiceChannel:
+            channel = ctx.message.author.voice.channel
+            await channel.connect()
+        else:
+            await ctx.send("You're not connected to a voice channel")
+    
+@bot.command()
+async def leave(ctx):
+    """
+    Leaves the voice channel
+    """
+    for client in bot.voice_clients:
+        await client.disconnect()
+    channel = None
 
 @bot.event
 async def on_reaction_add(reaction, user):
@@ -52,6 +77,10 @@ async def on_reaction_add(reaction, user):
                 #Rename the user
                 print("renaming")
                 await user.edit(nick=c.raised_hand_prefix + user.display_name)
+                for client in bot.voice_clients:
+                    s = discord.FFmpegPCMAudio(c.sound_path, executable='ffmpeg')
+                    if not client.is_playing():
+                        client.play(s)
 
 @bot.event
 async def on_reaction_remove(reaction, user):

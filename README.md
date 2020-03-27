@@ -7,6 +7,15 @@ The bot renames the people who react to his mesage so that they are brought up i
 This bot is made for a single-server use.
 
 ## Usage
+
+### Tell the bot to join your channel if you want a sound
+
+    {cmd_prefix}join
+
+### Tell the bot to leave the channel
+
+    {cmd_prefix}leave
+
 ### Start a "raise your hand" event
 
     {cmd_prefix}q

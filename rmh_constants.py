@@ -2,7 +2,7 @@
 A file where all constants are defined
 """
 #Bot token
-token = "mysuperstylishtoken"
+token = "mysuperstylishtokenc"
 
 #Prefix for invoking a command
 cmd_prefix = '$'
@@ -15,7 +15,10 @@ raised_hand_emoji = b'\xe2\x9c\x8b'
 
 #The prefix that is added to the nicknames
 #A dot lets the people who raises their hand to be brought up in the list (since discord sorts nicknames in alphabetical order)
-raised_hand_prefix = "."
+raised_hand_prefix = ".✋"
+
+#Sound
+sound_path = "me-too-short.mp3"
 
 #Future feature (:
 #TODO role_restriction_id = 
