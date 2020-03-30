@@ -18,4 +18,4 @@ async def on_ready():
     print("Logged in as %s" % (bot.user.name))
 
 
-bot.run("NDY2NTI4MzI4MDYxNDE5NTIx.XoI51g.rPdx22z764NJSANbxVhgtFhM8xo")
+bot.run("NDY2NTI4MzI4MDYxNDE5NTIx.XoI51g.TOKENrPdx22z764NJSANbxVhgtFhM8xo")
