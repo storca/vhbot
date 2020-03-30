@@ -76,7 +76,7 @@ class RaiseHand(commands.Cog):
                     #Rename the user
                     print("renaming")
                     await user.edit(nick=c.raised_hand_prefix + user.display_name)
-                    for client in bot.voice_clients:
+                    for client in self.bot.voice_clients:
                         s = discord.FFmpegPCMAudio(c.sound_path, executable='ffmpeg')
                         if not client.is_playing():
                             client.play(s)
@@ -91,11 +91,11 @@ class RaiseHand(commands.Cog):
         print("reaction remove") 
         if self.raise_your_hand_message != None and reaction.message.id == self.raise_your_hand_message.id:
             print(user)
-            if user == bot.user:
+            if user == self.bot.user:
                 pass
             elif reaction.emoji == c.raised_hand_emoji:
                 #Rename the user accordingly
-                for k, r_user in enumerate(raised_hand_users):
+                for k, r_user in enumerate(self.raised_hand_users):
                     if r_user == user:
                         await user.edit(nick=self.nicknames[k])
                         self.raised_hand_users.pop(k) #dirty : remove him from the list

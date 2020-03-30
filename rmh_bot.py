@@ -5,7 +5,8 @@ from colorama import Fore
 
 bot = commands.Bot(command_prefix=c.cmd_prefix)
 
-extensions = ['cogs.raiseHand']
+extensions = ['cogs.raiseHand',
+               'cogs.appel']
 
 if __name__ == '__main__':
     for ext in extensions:
