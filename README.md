@@ -30,6 +30,7 @@ This bot is made for a single-server use.
 
 ## Start the bot
 ### Install it
+    pip3 install -r requirements.txt
     git clone https://github.com/storca/raise-my-hand.git
     cd raise-my-hand
 
@@ -37,4 +38,4 @@ Change the settings of the bot in rmh_constants.py *(all settings are detailled 
 
 Then run the bot
 
-    pip3 install -r requirements.txt
+    python3 rmh_bot.py
