@@ -10,12 +10,11 @@ extensions = ['cogs.raiseHand',
 
 if __name__ == '__main__':
     for ext in extensions:
-        print(ext)
+        print(Fore.GREEN + "[STARTUP] : " + Fore.RESET + ext)
         bot.load_extension(ext)
 
 @bot.event
 async def on_ready():
-    print("Logged in as %s" % (bot.user.name))
+    print(Fore.GREEN + "[STARTUP] " + Fore.RESET  + "Logged in as " +Fore.GREEN  + bot.user.name + Fore.RESET)
 
-
-bot.run("NDY2NTI4MzI4MDYxNDE5NTIx.XoI51g.TOKENrPdx22z764NJSANbxVhgtFhM8xo")
+bot.run("TOKENNDY2NTI4MzI4MDYxNDE5NTIx.XoOZ8Q.0TlRhhoaQalNeZUZ99cw4v6ucHw")
