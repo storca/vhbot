@@ -35,7 +35,6 @@ class RaiseHand(commands.Cog):
         """
         print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " joining channel " + Fore.GREEN + ctx.message.author.voice.channel.name + Fore.RESET + " in server  " + Fore.GREEN + ctx.message.guild.name + Fore.RESET)
         if self.channel == None:
-            print(self.channel)
             if type(ctx.message.author.voice) == discord.VoiceState and type(ctx.message.author.voice.channel) == discord.VoiceChannel:
                 self.channel = ctx.message.author.voice.channel
                 await self.channel.connect()
