@@ -28,7 +28,7 @@ class Appel(commands.Cog):
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
-        if user == self.bot.user or reaction.message.id != self.raise_your_hand_message.id: pass 
+        if user == self.bot.user or reaction.message.id != self.raise_your_hand_message: pass 
         elif reaction.emoji == c.raised_hand_emoji:
             #Then the user has raised his hand
             if not user in self.nicknames: 

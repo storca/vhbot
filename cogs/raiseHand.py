@@ -70,7 +70,7 @@ class RaiseHand(commands.Cog):
                     self.raised_hand_users.append(user)
                     #Rename the user
                     await user.edit(nick=c.raised_hand_prefix + user.display_name)
-                    print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " joining channel" + Fore.GREEN + ctx.message.author.voice.channel.name + Fore.RESET + " in server  " + Fore.GREEN + ctx.message.guild.name + Fore.RESET)
+                    print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " joining channel" + Fore.GREEN + user.voice.channel.name + Fore.RESET + " in server  " + Fore.GREEN + user.message.guild.name + Fore.RESET)
                     for client in self.bot.voice_clients:
                         s = discord.FFmpegPCMAudio(c.sound_path, executable='ffmpeg')
                         if not client.is_playing():
