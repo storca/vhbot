@@ -25,8 +25,8 @@ class Appel(commands.Cog):
         await self.raise_your_hand_message.add_reaction(rmh_constants.raised_hand_emoji)
         await ctx.message.add_reaction("👍")
         for eleve in ctx.message.author.voice.channel :
-            self.nicknames.append(user.display_name)
-            print(Fore.CYAN + "[APPEL] : " + Fore.RESET + user.display_name + Fore.GREEN + " is here" + Fore.RESET)
+            self.nicknames.append(eleves)
+            print(Fore.CYAN + "[APPEL] : " + Fore.RESET + eleve + Fore.GREEN + " is here" + Fore.RESET)
         for k in range (0, len(self.listeEleve)):
             if self.listeEleve[k].nick != None :
                 self.listeEleve[k] = self.listeEleve[k].nick
