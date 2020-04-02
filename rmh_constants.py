@@ -27,3 +27,5 @@ multiple_rmh_messages_error = "You can only send one raise my end message, to en
 
 #TODO : clean this out of here
 raised_hand_emoji = raised_hand_emoji.decode("utf8")
+
+eleve_role = 688115830491447327
