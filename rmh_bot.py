@@ -17,4 +17,4 @@ if __name__ == '__main__':
 async def on_ready():
     print(Fore.GREEN + "[STARTUP] " + Fore.RESET  + "Logged in as " +Fore.GREEN  + bot.user.name + Fore.RESET)
 
-bot.run("TOKENNDY2NTI4MzI4MDYxNDE5NTIx.XoOZ8Q.0TlRhhoaQalNeZUZ99cw4v6ucHw")
+bot.run(c.token)

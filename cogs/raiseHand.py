@@ -60,22 +60,35 @@ class RaiseHand(commands.Cog):
         """
         When a reaction is added to a message
         """
-        if self.raise_your_hand_message != None and reaction.message.id == self.raise_your_hand_message.id:
-            #async for user in reaction.users():
-            if user == self.bot.user: pass
-            elif reaction.emoji == c.raised_hand_emoji:
-                #Then the user has raised his hand
-                if user not in self.raised_hand_users:
-                    self.nicknames.append(user.display_name)
-                    self.raised_hand_users.append(user)
-                    #Rename the user
-                    await user.edit(nick=c.raised_hand_prefix + user.display_name)
-                    print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " joining channel" + Fore.GREEN + user.voice.channel.name + Fore.RESET + " in server  " + Fore.GREEN + user.message.guild.name + Fore.RESET)
-                    for client in self.bot.voice_clients:
-                        s = discord.FFmpegPCMAudio(c.sound_path, executable='ffmpeg')
-                        if not client.is_playing():
-                            client.play(s)
+        try :
+            if self.raise_your_hand_message != None and reaction.message.id == self.raise_your_hand_message.id:
+                #async for user in reaction.users():
+                if user == self.bot.user: pass
+                elif reaction.emoji == c.raised_hand_emoji:
+                    #Then the user has raised his hand
+                    if user not in self.raised_hand_users:
+                        self.nicknames.append(user.display_name)
+                        self.raised_hand_users.append(user)
+                        #Rename the user
+                        await user.edit(nick=c.raised_hand_prefix + user.display_name)
+                        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " joining channel" + Fore.GREEN + user.voice.channel.name + Fore.RESET + " in server  " + Fore.GREEN + user.message.guild.name + Fore.RESET)
+                        for client in self.bot.voice_clients:
+                            s = discord.FFmpegPCMAudio(c.sound_path, executable='ffmpeg')
+                            if not client.is_playing():
+                                client.play(s)
+        except discord.errors.Forbidden: 
+            for k, r_user in enumerate(self.raised_hand_users):
+                if r_user == user:
+                    self.raised_hand_users.pop(k) #dirty : remove him from the list
+                    self.nicknames.pop(k)
 
+
+
+            for client in self.bot.voice_clients:
+                s = discord.FFmpegPCMAudio(c.sound_path, executable='ffmpeg')
+                if not client.is_playing():
+                    client.play(s)
+            print(Fore.RED + "[RAISE HAND] : " + Fore.RESET + "Tried to rename an admin")
    
 
     @commands.Cog.listener()
@@ -83,20 +96,28 @@ class RaiseHand(commands.Cog):
         """
         When a reation is removed from the raise your hand message
         """
-        if self.raise_your_hand_message != None and reaction.message.id == self.raise_your_hand_message.id:
-            if user == self.bot.user:
-                pass
-            elif reaction.emoji == c.raised_hand_emoji:
-                #Rename the user accordingly
-                for k, r_user in enumerate(self.raised_hand_users):
-                    if r_user == user:
-                        await user.edit(nick=self.nicknames[k])
-                        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.CYAN + self.nicknames[k] + Fore.RESET + " has been renamed")
-                        self.raised_hand_users.pop(k) #dirty : remove him from the list
-                        self.nicknames.pop(k)
-                        return
-                print(Fore.RED + "[ERROR] : " + Fore.RESET + " user " + Fore.CYAN + user.name + Fore.RESET + "not found in " + Fore.MAGENTA + "Raise Hand")
-   
+        try : 
+            if self.raise_your_hand_message != None and reaction.message.id == self.raise_your_hand_message.id:
+                if user == self.bot.user:
+                    pass
+                elif reaction.emoji == c.raised_hand_emoji:
+                    #Rename the user accordingly
+                    for k, r_user in enumerate(self.raised_hand_users):
+                        if r_user == user:
+                            await user.edit(nick=self.nicknames[k])
+                            print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.CYAN + self.nicknames[k] + Fore.RESET + " has been renamed")
+                            self.raised_hand_users.pop(k) #dirty : remove him from the list
+                            self.nicknames.pop(k)
+                            return
+                    print(Fore.RED + "[RAISE HAND] : " + Fore.RESET + " user " + Fore.CYAN + user.name + Fore.RESET + " not found in " + Fore.MAGENTA + "Raise Hand" + Fore.RESET)
+
+        except discord.errors.Forbidden:
+            print(Fore.RED + "[RAISE HAND] : " + Fore.RESET + "Tried to rename an admin")
+            for k, r_user in enumerate(self.raised_hand_users):
+                if r_user == user:
+                    self.raised_hand_users.pop(k) #dirty : remove him from the list
+                    self.nicknames.pop(k)
+
 
     @commands.command()
     async def e(self, ctx):

@@ -21,21 +21,24 @@ class Appel(commands.Cog):
         """ : Make a list of people in the server that did not press the button """ 
         print(Fore.CYAN + "[APPEL] : " + Fore.RESET + "starting appel") 
         self.listeEleve = ctx.message.guild.get_role(rmh_constants.eleve_role).members
-        self.raise_your_hand_message = await ctx.send(rmh_constants.raise_your_hand_text)
-        await self.raise_your_hand_message.add_reaction(rmh_constants.raised_hand_emoji)
-        await ctx.message.add_reaction("👍")
-        for eleve in ctx.message.author.voice.channel :
-            self.nicknames.append(eleves)
-            print(Fore.CYAN + "[APPEL] : " + Fore.RESET + eleve + Fore.GREEN + " is here" + Fore.RESET)
         for k in range (0, len(self.listeEleve)):
-            if self.listeEleve[k].nick != None :
-                self.listeEleve[k] = self.listeEleve[k].nick
+
+                if self.listeEleve[k].nick != None :
+                    self.listeEleve[k] = self.listeEleve[k].nick
+                else :
+                    self.listeEleve[k] = self.listeEleve[k].name
+        await ctx.message.add_reaction("👍")
+        for eleve in ctx.message.author.voice.channel.members:
+            if eleve.nick != None :
+                self.nicknames.append(eleve.nick)
             else :
-                self.listeEleve[k] = self.listeEleve[k].name
-        messageListe = "  -" + "\n  -".join(list(set([*self.listeEleve]) - set([*self.nicknames])))
-        if messageListe == "": await ctx.send("Tout le monde est présent ! Pas de gateau pour Ryan aujourd'hui !")
+                self.nicknames.append(eleve.name)
+            print(Fore.CYAN + "[APPEL] : " + Fore.RESET + str(eleve.nick) + Fore.GREEN + " is here" + Fore.RESET)
+        if [*self.listeEleve] == [*self.nicknames] :
+            await ctx.send("Tout le monde est présent ! Pas de gateau pour Ryan aujourd'hui !")
         else :
-            await ctx.send("Les patissiers de la semaine prochaine sont : \n" + messageListe)
+            messageListe = " -" + "\n -".join(set([*self.listeEleve]) - set([*self.nicknames]))
+            await ctx.send("Les patissiers de la semaine prochaine sont : \n" + str(messageListe))
         self.nicknames = list()
         self.raised_hand_user = list()
         
