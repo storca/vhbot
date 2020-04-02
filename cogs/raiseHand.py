@@ -10,16 +10,14 @@ class RaiseHand(commands.Cog):
         self.raise_your_hand_message = None 
         self.nicknames =[] 
         self.channel = None 
-   
-
-
+  
 
     @commands.command()
     async def q(self, ctx):
         """
         Asks people to raise their hands
         """
-        print("q")
+        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + "q is called")
         #TODO access control if ctx.message.author ==
         if self.raise_your_hand_message == None:
             self.raise_your_hand_message = await ctx.send(c.raise_your_hand_text)
@@ -35,9 +33,8 @@ class RaiseHand(commands.Cog):
         """
         Connects to the same channel the user is in
         """
-        print("join")
+        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " joining channel " + Fore.GREEN + ctx.message.author.voice.channel.name + Fore.RESET + " in server  " + Fore.GREEN + ctx.message.guild.name + Fore.RESET)
         if self.channel == None:
-            print(self.channel)
             if type(ctx.message.author.voice) == discord.VoiceState and type(ctx.message.author.voice.channel) == discord.VoiceChannel:
                 self.channel = ctx.message.author.voice.channel
                 await self.channel.connect()
@@ -51,7 +48,7 @@ class RaiseHand(commands.Cog):
         """
         Leaves the voice channel
         """
-        print("leave")
+        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " leaving channel " + Fore.GREEN + ctx.message.author.voice.channel.name + Fore.RESET + " in server  " + Fore.GREEN + ctx.message.guild.name + Fore.RESET)
         for client in self.bot.voice_clients:
             await client.disconnect()
         self.channel = None
@@ -64,18 +61,16 @@ class RaiseHand(commands.Cog):
         When a reaction is added to a message
         """
         if self.raise_your_hand_message != None and reaction.message.id == self.raise_your_hand_message.id:
-            print("reaction added")
             #async for user in reaction.users():
-            if user == self.bot.user:
-                print("bot reacted")
+            if user == self.bot.user: pass
             elif reaction.emoji == c.raised_hand_emoji:
                 #Then the user has raised his hand
                 if user not in self.raised_hand_users:
                     self.nicknames.append(user.display_name)
                     self.raised_hand_users.append(user)
                     #Rename the user
-                    print("renaming")
                     await user.edit(nick=c.raised_hand_prefix + user.display_name)
+                    print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " joining channel" + Fore.GREEN + ctx.message.author.voice.channel.name + Fore.RESET + " in server  " + Fore.GREEN + ctx.message.guild.name + Fore.RESET)
                     for client in self.bot.voice_clients:
                         s = discord.FFmpegPCMAudio(c.sound_path, executable='ffmpeg')
                         if not client.is_playing():
@@ -88,9 +83,7 @@ class RaiseHand(commands.Cog):
         """
         When a reation is removed from the raise your hand message
         """
-        print("reaction remove") 
         if self.raise_your_hand_message != None and reaction.message.id == self.raise_your_hand_message.id:
-            print(user)
             if user == self.bot.user:
                 pass
             elif reaction.emoji == c.raised_hand_emoji:
@@ -98,11 +91,11 @@ class RaiseHand(commands.Cog):
                 for k, r_user in enumerate(self.raised_hand_users):
                     if r_user == user:
                         await user.edit(nick=self.nicknames[k])
+                        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.CYAN + self.nicknames[k] + Fore.RESET + " has been renamed")
                         self.raised_hand_users.pop(k) #dirty : remove him from the list
                         self.nicknames.pop(k)
                         return
-                print("User not found in rasied_hand_users")
-
+                print(Fore.RED + "[ERROR] : " + Fore.RESET + " user " + Fore.CYAN + user.name + Fore.RESET + "not found in " + Fore.MAGENTA + "Raise Hand")
    
 
     @commands.command()
@@ -110,7 +103,6 @@ class RaiseHand(commands.Cog):
         """
         End the struggle
         """
-        print("E")
         if self.raise_your_hand_message != None:
             await ctx.message.delete()
             await self.raise_your_hand_message.delete()
@@ -122,10 +114,7 @@ class RaiseHand(commands.Cog):
                     self.raised_hand_users.pop(k)
             self.raised_hand_users = list()
             self.nicknames = list()
-
-
-
-
-
+            print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + "everyone has been renamed in server " + Fore.GREEN + ctx.message.guild.name + Fore.RESET)
+            
 def setup(bot):
     bot.add_cog(RaiseHand(bot))
