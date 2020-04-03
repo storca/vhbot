@@ -79,12 +79,14 @@ async def on_message(message):
         await message.channel.send(content = None,embed = embed )
     
     if "vh!citation" in message.content:
+        #send a citation to the message.channel
         poem = random.choice(poems)
         embed = discord.Embed(title='Citation',colour=discord.Color.from_rgb(random.randint(0,255),random.randint(0,255),random.randint(0,255)))
         embed.add_field(name='"' + poem + '"',value ='Victor Hugo')
         await message.channel.send(content = None, embed = embed)
 
     if "vh!help" in message.content:
+        #display the help 
         embed = discord.Embed(title='Help',colour=discord.Color.from_rgb(255,128,0))
         embed.add_field(name='vh!citation',value ='Vous donne une de mes citations.')
         embed.add_field(name='vh!appel',value ="Fait l'appel dans un salon vocal.")
@@ -94,6 +96,7 @@ async def on_message(message):
         await message.channel.send(content = None, embed = embed)
 
     if "vh!eleves" in message.content:
+        #shows the eleves in the classe
         classe = []
         for eleve in discord.utils.get(message.guild.roles, name='Élèves').members:
             if not eleve in discord.utils.get(message.guild.roles, name='Bot').members:
