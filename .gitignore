@@ -1,3 +1,5 @@
+#your config file (:
+instance.conf
 #ide-relative ignore
 .vscode
 
