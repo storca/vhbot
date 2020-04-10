@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
-import rmh_constants as c
+#import rmh_constants as c
 from colorama import Fore 
+import rmh_conf as c
 
 bot = commands.Bot(command_prefix=c.cmd_prefix)
 

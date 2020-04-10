@@ -1,7 +1,7 @@
 import discord 
 from discord.ext import commands 
 from colorama import Fore 
-import rmh_constants as c
+import rmh_conf as c
 
 class RaiseHand(commands.Cog):
     def __init__(self, bot):
@@ -20,12 +20,14 @@ class RaiseHand(commands.Cog):
         print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + "q is called")
         #TODO access control if ctx.message.author ==
         if not self.is_asking:
-            self.raise_your_hand_message = await ctx.send(c.raise_your_hand_text)
+            embed = discord.Embed(title='Participez',colour=discord.Color.from_rgb(160, 15, 209))
+            embed.add_field(name='Levez la main', value=c.raise_your_hand_text)
+            self.raise_your_hand_message = await ctx.send(content = None, embed = embed)
             await self.raise_your_hand_message.add_reaction(c.raised_hand_emoji)
             await ctx.message.delete()
             self.is_asking = True
         else:
-            await ctx.send(c.multiple_rmh_messages_error)
+            await ctx.send(c.multiple_rmh_messages_error % ("$","$"))
    
 
 
@@ -67,11 +69,10 @@ class RaiseHand(commands.Cog):
                 pass
             elif reaction.emoji == c.raised_hand_emoji:
                 #Then the user has raised his hand
-                if not c.raised_hand_prefix in user.display_name:
+                if not c.raised_hand_nick_prefix in user.display_name:
                     #Rename the user
                     try:
-                        await user.edit(nick=c.raised_hand_prefix + user.display_name)
-                        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " joining channel" + Fore.GREEN + user.voice.channel.name + Fore.RESET + " in server  " + Fore.GREEN + user.guild.name + Fore.RESET)
+                        await user.edit(nick=c.raised_hand_nick_prefix + user.display_name)
                         #add him to the list (tuple)
                         self.raised_hand_users.append((user, user.display_name))
                     except discord.errors.Forbidden:
