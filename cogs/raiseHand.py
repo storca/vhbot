@@ -20,21 +20,35 @@ class RaiseHand(commands.Cog):
         print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + "q is called")
         # TODO access control if ctx.message.author ==
         if not self.is_asking:
-            embed = discord.Embed(title='Participez', colour=discord.Color.from_rgb(160, 15, 209))
-            embed.add_field(name='Levez la main', value=c.raise_your_hand_text)
+            embed = discord.Embed(title='JCOMPRNENDPÔ !',
+                    colour=discord.Color.from_rgb(160, 15, 209))
             self.raise_your_hand_message = await ctx.send(content=None, embed=embed)
             await self.raise_your_hand_message.add_reaction(c.raised_hand_emoji)
-            await ctx.message.delete()
-            self.is_asking = True
-        else:
-            await ctx.send(str(c.multiple_rmh_messages_error % ("$", "$")))
+        await ctx.message.delete()
+        self.is_asking = True
+        if c.raised_hand_nick_prefix not in ctx.message.author.display_name:
+            # Rename the user
+            try:
+                await ctx.message.author.edit(nick=c.raised_hand_nick_prefix +
+                        ctx.message.author.display_name)
+                # add him to the list (tuple)
+                self.raised_hand_users.append(
+                    (ctx.message.author, ctx.message.autor.display_name))
+            except discord.errors.Forbidden:
+                print(Fore.RED + "[RAISE HAND] : " + Fore.RESET +
+                    "Tried to rename an admin (%s)" % ctx.message.author.display_name)
+            for client in self.bot.voice_clients:
+                s = discord.FFmpegPCMAudio(
+                    c.sound_path, executable='ffmpeg')
+                if not client.is_playing():
+                    client.play(s)
 
     @commands.command()
     async def join(self, ctx):
         """
         Connects to the same channel the user is in
         """
-        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " joining channel " + Fore.GREEN +
+        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " joining channel" + Fore.GREEN +
             ctx.message.author.voice.channel.name + Fore.RESET + " in server  " + Fore.GREEN +
             ctx.message.guild.name + Fore.RESET)
         if self.channel is None:
@@ -53,7 +67,7 @@ class RaiseHand(commands.Cog):
         """
         Leaves the voice channel
         """
-        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " leaving channel " +
+        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " leaving channel" +
             Fore.GREEN + ctx.message.author.voice.channel.name + Fore.RESET +
             " in server  " + Fore.GREEN + ctx.message.guild.name + Fore.RESET)
         for client in self.bot.voice_clients:
@@ -79,15 +93,10 @@ class RaiseHand(commands.Cog):
                         self.raised_hand_users.append(
                             (user, user.display_name))
                     except discord.errors.Forbidden:
-                        print(
-                            Fore.RED +
-                            "[RAISE HAND] : " +
-                            Fore.RESET +
-                            "Tried to rename an admin (%s)" %
-                            user.display_name)
+                        print(Fore.RED + "[RAISE HAND] : " + Fore.RESET +
+                            "Tried to rename an admin (%s)" % user.display_name)
                     for client in self.bot.voice_clients:
-                        s = discord.FFmpegPCMAudio(
-                            c.sound_path, executable='ffmpeg')
+                        s = discord.FFmpegPCMAudio(c.sound_path, executable='ffmpeg')
                         if not client.is_playing():
                             client.play(s)
 
