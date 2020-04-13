@@ -33,7 +33,7 @@ class RaiseHand(commands.Cog):
                         ctx.message.author.display_name)
                 # add him to the list (tuple)
                 self.raised_hand_users.append(
-                    (ctx.message.author, ctx.message.autor.display_name))
+                    (ctx.message.author, ctx.message.author.display_name))
             except discord.errors.Forbidden:
                 print(Fore.RED + "[RAISE HAND] : " + Fore.RESET +
                     "Tried to rename an admin (%s)" % ctx.message.author.display_name)
@@ -67,12 +67,17 @@ class RaiseHand(commands.Cog):
         """
         Leaves the voice channel
         """
-        print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " leaving channel" +
-            Fore.GREEN + ctx.message.author.voice.channel.name + Fore.RESET +
-            " in server  " + Fore.GREEN + ctx.message.guild.name + Fore.RESET)
-        for client in self.bot.voice_clients:
-            await client.disconnect()
-        self.channel = None
+        try:
+            print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + " leaving channel" +
+                Fore.GREEN + ctx.message.author.voice.channel.name + Fore.RESET +
+                " in server  " + Fore.GREEN + ctx.message.guild.name + Fore.RESET)
+            for client in self.bot.voice_clients:
+                await client.disconnect()
+            self.channel = None
+        except AttributeError:
+            for client in self.bot.voice_clients:
+                await client.disconnect()
+            self.channel = None
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
