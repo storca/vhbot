@@ -20,7 +20,7 @@ class RaiseHand(commands.Cog):
         print(Fore.MAGENTA + "[RAISE HAND] : " + Fore.RESET + "q is called")
         # TODO access control if ctx.message.author ==
         if not self.is_asking:
-            embed = discord.Embed(title='JCOMPRNENDPÔ !',
+            embed = discord.Embed(title='Il y a une question !',
                     colour=discord.Color.from_rgb(160, 15, 209))
             self.raise_your_hand_message = await ctx.send(content=None, embed=embed)
             await self.raise_your_hand_message.add_reaction(c.raised_hand_emoji)
