@@ -46,8 +46,8 @@ class Appel(commands.Cog):
             embed = discord.Embed(
                 title='Appel',
                 colour=discord.Color.from_rgb(255, 0, 0))
-            embed.add_field(name='Absents',
-                    value="Les patissiers de la semaine prochaine sont : \n" + str(messageListe))
+            embed.add_field(name='A vos fourneaux !',
+                    value=str(messageListe))
             await ctx.send(content=None, embed=embed)
 
 
