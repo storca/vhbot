@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from colorama import Fore
-import rmh_conf as c
+import vhconf as c
 
 
 class RaiseHand(commands.Cog):
@@ -101,7 +101,7 @@ class RaiseHand(commands.Cog):
                         print(Fore.RED + "[RAISE HAND] : " + Fore.RESET +
                             "Tried to rename an admin (%s)" % user.display_name)
                     for client in self.bot.voice_clients:
-                        s = discord.FFmpegPCMAudio(c.sound_path, executable='ffmpeg')
+                        s = discord.FFmpegPCMAudio(c.sound_path, executable=c.ffmpeg_path)
                         if not client.is_playing():
                             client.play(s)
 

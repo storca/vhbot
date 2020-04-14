@@ -3,12 +3,20 @@ from colorama import Fore
 import poems
 import random
 import discord
-
+import vhconf as c
 
 class Citations(commands.Cog):
-
+    """
+    Gives you a random quote
+    """
     def __init__(self, bot):
         self.bot = bot
+        #Read poems from file
+        f = open(c.poems_file, encoding='utf-8')
+        self.poems = list()
+        for line in f:
+            self.append(line.strip())
+        f.close()
 
     @commands.command()
     async def citation(self, ctx):
@@ -17,7 +25,7 @@ class Citations(commands.Cog):
         """
         print(Fore.CYAN + "[CITATION] : " + Fore.RESET + "giving a neat citation in " +
             Fore.CYAN + str(ctx.message.channel) + Fore.RESET)
-        poem = random.choice(poems.poems)
+        poem = random.choice(self.poems)
         embed = discord.Embed(title='Citation', colour=discord.
                 Color.from_rgb(random.randint(0, 255),
                                random.randint(0, 255), random.randint(0, 255)))

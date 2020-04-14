@@ -1,14 +1,14 @@
 from discord.ext import commands
 # import rmh_constants as c
 from colorama import Fore
-import rmh_conf as c
+import vhconf as c
 
 bot = commands.Bot(command_prefix=c.cmd_prefix)
 
 extensions = ['cogs.raiseHand',
               'cogs.appel',
               'cogs.maths',
-              'cogs.citations']
+              'cogs.misc']
 
 if __name__ == '__main__':
     for ext in extensions:

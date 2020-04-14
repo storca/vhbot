@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from colorama import Fore
-import rmh_conf as c
+import vhconf as c
 
 
 class Appel(commands.Cog):
