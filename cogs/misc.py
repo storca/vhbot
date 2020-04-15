@@ -1,6 +1,5 @@
 from discord.ext import commands
 from colorama import Fore
-import poems
 import random
 import discord
 import vhconf as c
@@ -15,7 +14,7 @@ class Citations(commands.Cog):
         f = open(c.poems_file, encoding='utf-8')
         self.poems = list()
         for line in f:
-            self.append(line.strip())
+            self.poems.append(line.strip())
         f.close()
 
     @commands.command()
