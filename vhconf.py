@@ -1,6 +1,15 @@
 import configparser
 from colorama import Fore
 """
+Read some a r t
+"""
+artf = open("art.txt", "r", encoding="utf8")
+art = artf.read()
+art = art.split("-$")
+#print(secrets.choice(art))
+print(art[0])
+artf.close()
+"""
 Reads from the config(s) file(s)
 """
 conf = configparser.ConfigParser()

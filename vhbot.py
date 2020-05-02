@@ -7,7 +7,8 @@ bot = commands.Bot(command_prefix=c.cmd_prefix)
 
 extensions = ['cogs.raiseHand',
               'cogs.appel',
-              'cogs.misc'] # too complicated to implement cogs.math
+              'cogs.misc',
+              'cogs.bell'] #cogs.maths bkn
 
 if __name__ == '__main__':
     for ext in extensions:
