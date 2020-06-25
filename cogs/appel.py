@@ -51,7 +51,7 @@ class Appel(commands.Cog):
                     colour=discord.Color.from_rgb(132, 144, 163))
                 embed.add_field(name='Voilà ma dernière liste d\'absents...😭\nMa mission est terminée 😔',
                         value=str(messageListe))
-                await ctx.send("Ce fut un plaisir Mr Mary 😔")
+                await ctx.send("Ce fut un plaisir Mr Mary 😔", embed=embed)
                 self.depressed = False
             else:
                 embed = discord.Embed(
@@ -59,7 +59,7 @@ class Appel(commands.Cog):
                     colour=discord.Color.from_rgb(255, 0, 0))
                 embed.add_field(name='A vos fourneaux !',
                         value=str(messageListe))
-            await ctx.send(content=None, embed=embed)
+                await ctx.send(content=None, embed=embed)
 
 
 def setup(bot):

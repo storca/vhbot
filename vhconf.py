@@ -3,11 +3,7 @@ from colorama import Fore
 """
 Read some a r t
 """
-<<<<<<< HEAD
-artf = open("ressources/text/art.txt", "r", encoding="utf8")
-=======
 artf = open("./ressources/text/art.txt", "r", encoding="utf8")
->>>>>>> 7df8ee7d3482ba37f0c60142270d1eb12322ef9e
 art = artf.read()
 art = art.split("-$")
 #print(secrets.choice(art))
