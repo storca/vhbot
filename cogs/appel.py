@@ -8,6 +8,7 @@ class Appel(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.depressed = True
         self.nicknames = list()
         self.raise_your_hand_message = None
         self.raised_hand_user = list()
@@ -43,11 +44,21 @@ class Appel(commands.Cog):
             await ctx.send(content=None, embed=embed)
         else:
             messageListe = " -" + "\n -".join(not_present)
-            embed = discord.Embed(
-                title='Appel',
-                colour=discord.Color.from_rgb(255, 0, 0))
-            embed.add_field(name='A vos fourneaux !',
-                    value=str(messageListe))
+            embed = None
+            if self.depressed:
+                embed = discord.Embed(
+                    title='Appel... ;(',
+                    colour=discord.Color.from_rgb(132, 144, 163))
+                embed.add_field(name='Voilà ma dernière liste d\'absents...😭\nMa mission est terminée 😔',
+                        value=str(messageListe))
+                await ctx.send("Ce fut un plaisir Mr Mary 😔")
+                self.depressed = False
+            else:
+                embed = discord.Embed(
+                    title='Appel',
+                    colour=discord.Color.from_rgb(255, 0, 0))
+                embed.add_field(name='A vos fourneaux !',
+                        value=str(messageListe))
             await ctx.send(content=None, embed=embed)
 
 
