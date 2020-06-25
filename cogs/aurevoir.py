@@ -13,7 +13,7 @@ class AuRevoir(commands.Cog):
         if self.depressed == True:
             embed = discord.Embed(
                     title='MPSI, the final chapter',
-                    colour=discord.Color.from_rgb(0, 0, 0))
+                    colour=discord.Color.from_rgb(132, 144, 163))
             embed.add_field(name = 'l\'année est a présent terminée, tout comme ma mission !',
                     value='Merci beaucoup ! \n *une star github peut etre ?*')
             await ctx.send("Ce fut un plaisir Mr Mary 😔", embed=embed)
