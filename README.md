@@ -31,8 +31,8 @@ This bot is made for a single-server use.
 ## Start the bot
 ### Install it
     git clone https://github.com/storca/vhbot.git
+    cd vhbot
     pip3 install -r requirements.txt
-    cd raise-my-hand
     cp default.conf instance.conf
 
 Change the settings of the bot in instance.conf *(all settings are detailled in the file)*
