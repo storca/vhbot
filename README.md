@@ -1,4 +1,4 @@
-# raise-my-hand
+# VHBot
 A Discord bot made to inform people that you raise your hand by renaming users
 
 ## Description
@@ -30,8 +30,8 @@ This bot is made for a single-server use.
 
 ## Start the bot
 ### Install it
+    git clone https://github.com/storca/vhbot.git
     pip3 install -r requirements.txt
-    git clone https://github.com/storca/raise-my-hand.git
     cd raise-my-hand
     cp default.conf instance.conf
 
