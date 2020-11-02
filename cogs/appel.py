@@ -40,26 +40,17 @@ class Appel(commands.Cog):
                 colour=discord.Color.from_rgb(0, 255, 0))
             embed.add_field(
                 name='Au complet',
-                value="Tout le monde est présent ! Pas de gateau pour Ryan aujourd'hui !")
+                value="Tout le monde est présent !")
             await ctx.send(content=None, embed=embed)
         else:
             messageListe = " -" + "\n -".join(not_present)
             embed = None
-            if self.depressed:
-                embed = discord.Embed(
-                    title='Appel... ;(',
-                    colour=discord.Color.from_rgb(132, 144, 163))
-                embed.add_field(name='Voilà ma dernière liste d\'absents...😭\nMa mission est terminée 😔',
-                        value=str(messageListe))
-                await ctx.send("Ce fut un plaisir Mr Mary 😔", embed=embed)
-                self.depressed = False
-            else:
-                embed = discord.Embed(
-                    title='Appel',
-                    colour=discord.Color.from_rgb(255, 0, 0))
-                embed.add_field(name='A vos fourneaux !',
-                        value=str(messageListe))
-                await ctx.send(content=None, embed=embed)
+            embed = discord.Embed(
+                title='Appel',
+                colour=discord.Color.from_rgb(255, 0, 0))
+            embed.add_field(name='A vos fourneaux !',
+                    value=str(messageListe))
+            await ctx.send(content=None, embed=embed)
 
 
 def setup(bot):

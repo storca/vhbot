@@ -2,14 +2,15 @@ from discord.ext import commands
 from colorama import Fore
 import vhconf as c
 
-bot = commands.Bot(command_prefix=[c.cmd_prefix, 'au ', 'Au '])
+#bot = commands.Bot(command_prefix=[c.cmd_prefix, 'au ', 'Au '])
+bot = commands.Bot(command_prefix=c.cmd_prefix)
 
 extensions = ['cogs.raiseHand',
               'cogs.appel',
               'cogs.misc',
               'cogs.bell'] # cogs.maths bkn
 
-extensionsDepression = ['cogs.aurevoir']
+extensionsDepression = [] #['cogs.aurevoir']
 
 if __name__ == '__main__':
     for ext in extensions:
