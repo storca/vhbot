@@ -1,9 +1,15 @@
 from discord.ext import commands
+import discord
 from colorama import Fore
 import vhconf as c
 
+#NOTE : 'Members' intent must be enabled on your discord bot's page
+#https://discord.com/developers/applications
+intents = discord.Intents.default()
+intents.members = True
+
 #bot = commands.Bot(command_prefix=[c.cmd_prefix, 'au ', 'Au '])
-bot = commands.Bot(command_prefix=c.cmd_prefix)
+bot = commands.Bot(command_prefix=c.cmd_prefix, intents=intents)
 
 extensions = ['cogs.raiseHand',
               'cogs.appel',
