@@ -4,6 +4,7 @@ from colorama import Fore
 import vhconf as c
 
 #NOTE : 'Members' intent must be enabled on your discord bot's page
+#https://discordpy.readthedocs.io/en/latest/intents.html#privileged-intents
 #https://discord.com/developers/applications
 intents = discord.Intents.default()
 intents.members = True
