@@ -21,7 +21,7 @@ class Appel(commands.Cog):
         if len(args) == 0:
             role = c.called_role_name
         else:
-            role = ''.join(args)
+            role = ' '.join(args)
         self.listeEleve = discord.utils.get(
             ctx.message.guild.roles,
             name=role)
