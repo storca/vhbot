@@ -16,12 +16,17 @@ class Appel(commands.Cog):
         self.listeEleve = list()
 
     @commands.command()
-    async def appel(self, ctx):
+    async def appel(self, ctx, role):
         """ : Make a list of people in the server that did not press the button """
         # self.listeEleve = ctx.message.guild.get_role(c.called_role_id).members
         self.listeEleve = discord.utils.get(
             ctx.message.guild.roles,
-            name=c.called_role_name).members
+            name=role)
+        if self.listeEleve == None:
+            await ctx.send("Nom de rôle (%s) invalide" % (role))
+            return
+        else:
+            self.listeEleve = self.listeEleve.members
         # edit
         not_present = list()
         if ctx.message.author.voice is None:
@@ -40,7 +45,7 @@ class Appel(commands.Cog):
                 colour=discord.Color.from_rgb(0, 255, 0))
             embed.add_field(
                 name='Au complet',
-                value="Tout le monde est présent !")
+                value="Tous les %s sont là !" % (role))
             await ctx.send(content=None, embed=embed)
         else:
             messageListe = " -" + "\n -".join(not_present)
