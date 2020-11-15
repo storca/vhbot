@@ -1,10 +1,5 @@
 # VHBot
-A Discord bot made to inform people that you raise your hand by renaming users
-
-## Description
-The bot renames the people who react to his mesage so that they are brought up in the voice channel. When people stop *virtually* raising their hand, the bot renames them to their previous nickname. Moreover, the bot cleans request messages and his messages itself so the tchat doesn't get spammed.
-
-This bot is made for a single-server use.
+A Discord bot made to make Discord more like a virtual classroom.
 
 ## Usage
 
@@ -20,6 +15,8 @@ This bot is made for a single-server use.
 
     {cmd_prefix}q
 
+The bot renames the people who react to his mesage so that they are brought up in the voice channel. When people stop *virtually* raising their hand, the bot renames them to their previous nickname. Moreover, the bot cleans request messages and his messages itself so the tchat doesn't get spammed.
+
 *The bot sends a message in the current context (eg: #channel) and adds a reaction to it. All the people that add a reaction are renamed with the prefix, people who remove their reaction are renamed with the pseudo they used when they added the reaction*
 
 ### Stop the "raise your hand" event
@@ -28,7 +25,16 @@ This bot is made for a single-server use.
 
 *Renames all people who "raised their hand" back to their default nicknames, deletes it's "Raise your hand!" message and the request message*
 
+### Appel
+```$appel <role_name>``` will list everyone from the ```<role_name>``` that is not in the command author's voice channel.
+```$appel``` will take the value of ```called_role_name``` value in instance.conf 
+
+
 ## Start the bot
+### Optional dependencies
+    sudo apt install ffmpeg
+*ffmpeg is used for audio playback, if you don't need it, don't install it*
+
 ### Install it
     git clone https://github.com/storca/vhbot.git
     cd vhbot
