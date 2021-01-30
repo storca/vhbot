@@ -1,3 +1,7 @@
+"""
+Read documentation from config files and set them to local variables
+"""
+
 import configparser
 from colorama import Fore
 """
